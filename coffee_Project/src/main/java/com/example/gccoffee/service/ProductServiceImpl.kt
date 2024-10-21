@@ -1,42 +1,56 @@
-package com.example.gccoffee.service;
+package com.example.gccoffee.service
 
-import com.example.gccoffee.entity.Category;
-import com.example.gccoffee.entity.Product;
-import com.example.gccoffee.repository.ProductRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
+import com.example.gccoffee.DTO.ProductDTO
+import com.example.gccoffee.entity.Category
+import com.example.gccoffee.entity.Product
+import com.example.gccoffee.repository.ProductRepository
+import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
+import java.util.*
 
 @Service
 @Transactional
-@RequiredArgsConstructor
-@Log4j2
-public class ProductServiceImpl implements ProductService {
-private final ProductRepository productRepository;
-    @Override
-    public List<Product> getProducts() {
-        return productRepository.findAlls();
+open class ProductServiceImpl(private val productRepository: ProductRepository) : ProductService {
+
+    //모든 상품 정보 반환
+    override fun products(): List<Product?>? = productRepository.findAll()
+
+    //새로운 상품 등록
+    override fun registerProduct(productDTO: ProductDTO): Product {
+        val products = Product().apply {
+            this.productName= productDTO.productName
+            this.category= productDTO.category
+            this.price = productDTO.price
+            this.description =productDTO.description
+        }
+        return productRepository.save(products)
     }
 
-    @Override
-    public Product registerProduct(Product product) {
-        Product products=Product.builder().productName(product.getProductName())
-                .category(product.getCategory())
-                .price(product.getPrice())
-                .description(product.getDescription())
-                .build();
-        log.info(product.getProductName());
-        log.info(product.getCategory());
-        log.info(products);
-        return productRepository.save(products);
+    override fun getProductsByCategory(category: Optional<Category?>): List<Product?>? {
+        return productRepository.findByCategory(category)
     }
 
-    @Override
-    public List<Product> getProductsByCategory(Category category) {
-        return productRepository.findByCategory(category);
-    }
+    //상세 상품 조회
+    override fun productInfo(productId: Long): Product = productRepository.findById(productId).orElse(null)
 
+    //상품 정보 수정
+    override fun updateProduct(productId : Long, productDTO: ProductDTO){
+       //가존의 상퓸 정보가 맞는지 확인
+        val product : Product = productRepository.findById(productId).orElse(null)
+
+        // 존재하면 해당 set
+        //save
+        product.let {
+            it.productName = productDTO.productName
+            it.price = productDTO.price
+            it.category = productDTO.category
+            it.description = productDTO.description
+            productRepository.save(it)
+        }
+
+    }
+    //상퓸 삭제
+    override fun deleteProduct(productId: Long) = productRepository.deleteById(productId)
 }
+
+//log 클래스 만들어서 찍어보기

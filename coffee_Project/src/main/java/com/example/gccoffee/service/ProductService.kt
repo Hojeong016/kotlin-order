@@ -1,12 +1,16 @@
-package com.example.gccoffee.service;
+package com.example.gccoffee.service
 
-import com.example.gccoffee.entity.Category;
-import com.example.gccoffee.entity.Product;
+import com.example.gccoffee.DTO.ProductDTO
+import com.example.gccoffee.entity.Category
+import com.example.gccoffee.entity.Product
+import java.util.*
 
-import java.util.List;
+interface ProductService {
 
-public interface ProductService {
-    public List<Product> getProducts();
-    public Product registerProduct(Product product);
-    public List<Product> getProductsByCategory(Category category);
+    fun products(): List<Product?>?
+    fun registerProduct(productDTO: ProductDTO): Product
+    fun getProductsByCategory(category: Optional<Category?>): List<Product?>?
+    fun productInfo(productId: Long) : Product
+    fun updateProduct(productId: Long,productDTO: ProductDTO)
+    fun deleteProduct(productId : Long)
 }

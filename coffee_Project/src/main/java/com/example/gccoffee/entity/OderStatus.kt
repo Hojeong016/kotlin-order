@@ -1,6 +1,6 @@
-package com.example.gccoffee.entity;
+package com.example.gccoffee.entity
 
-public enum OderStatus {
+enum class OderStatus {
     ACCEPTED,
     PAYMENT_CONFIRMED,
     READY_FOR_DELIVERY,

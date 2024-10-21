@@ -1,9 +1,6 @@
-package com.example.gccoffee.repository;
+package com.example.gccoffee.repository
 
-import com.example.gccoffee.entity.Orders;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import com.example.gccoffee.entity.Orders
+import org.springframework.data.jpa.repository.JpaRepository
 
-
-public interface OrderRepository extends JpaRepository<Orders, Long> {
-}
+interface OrderRepository : JpaRepository<Orders?, Long?>

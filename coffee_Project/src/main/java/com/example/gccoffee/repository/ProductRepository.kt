@@ -1,18 +1,18 @@
-package com.example.gccoffee.repository;
+package com.example.gccoffee.repository
 
-import com.example.gccoffee.entity.Category;
-import com.example.gccoffee.entity.Product;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
-
-import java.util.List;
+import com.example.gccoffee.entity.Category
+import com.example.gccoffee.entity.Product
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Query
+import org.springframework.data.repository.query.Param
+import org.springframework.stereotype.Repository
+import java.util.*
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product,Long> {
+interface ProductRepository : JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p")
-    List<Product> findAlls();
+    fun findAlls(): List<Product?>?
+
     @Query("SELECT p FROM Product p WHERE p.category=:category")
-    List<Product> findByCategory(@Param("category") Category category);
+    fun findByCategory(@Param("category") category: Optional<Category?>): List<Product?>?
 }

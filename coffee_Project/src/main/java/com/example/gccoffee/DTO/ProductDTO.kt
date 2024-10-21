@@ -1,29 +1,12 @@
-package com.example.gccoffee.DTO;
+package com.example.gccoffee.DTO
 
-import com.example.gccoffee.entity.Category;
-import com.example.gccoffee.entity.Product;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.example.gccoffee.entity.Category
 
-@Data
-@NoArgsConstructor
-public class ProductDTO {
-    private Long productId;
-    private Category category;
-    private Long price;
-    private String description;
 
-    public ProductDTO(Product product) {
-        this.productId = product.getProductId();
-        this.category = product.getCategory();
-        this.price = product.getPrice();
-        this.description = product.getDescription();
-    }
-    public Product toEntity(){
-        return Product.builder().productId(productId)
-                .category(category)
-                .price(price)
-                .description(description)
-                .build();
-    }
-}
+data class ProductDTO(
+    val productId: Long?,
+    val productName: String,
+    val category: Category ,
+    val price: Long ,
+    val description: String ,
+)

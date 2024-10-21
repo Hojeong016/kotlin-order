@@ -1,5 +1,5 @@
-package com.example.gccoffee.entity;
+package com.example.gccoffee.entity
 
-public enum Category {
-  COFFEE_BEAN_PACKAGE
+enum class Category {
+    COFFEE_BEAN_PACKAGE
 }
